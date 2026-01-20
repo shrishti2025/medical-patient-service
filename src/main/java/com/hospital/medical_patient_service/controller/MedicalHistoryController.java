@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import com.hospital.medical_patient_service.entity.MedicalHistory;
 import com.hospital.medical_patient_service.services.MedicalHistoryService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/patients/history")
 public class MedicalHistoryController {
@@ -17,6 +19,7 @@ public class MedicalHistoryController {
 
     @PostMapping
     public MedicalHistory addHistory(
+    		@Valid
             @RequestBody MedicalHistory history,
             @RequestHeader("X-Patient-Id") Long patientId) {
 

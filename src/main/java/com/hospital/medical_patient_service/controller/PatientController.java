@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hospital.medical_patient_service.entity.Patient;
 import com.hospital.medical_patient_service.services.PatientService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/patients")
 public class PatientController {
@@ -22,6 +24,7 @@ public class PatientController {
     // Create profile
     @PostMapping
     public Patient createPatient(
+    		@Valid
             @RequestBody Patient patient,
             @RequestHeader("X-User-Id") Long userId) {
 
