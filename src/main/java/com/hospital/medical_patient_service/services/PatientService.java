@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hospital.medical_patient_service.entity.Patient;
+import com.hospital.medical_patient_service.exception.ResourceNotFoundException;
 import com.hospital.medical_patient_service.repository.PatientRepository;
 
 @Service
@@ -13,16 +14,45 @@ public class PatientService {
     private PatientRepository repo;
 
     public Patient createPatient(Patient patient, Long userId) {
+    	if (userId == null) {
+            throw new IllegalArgumentException("User ID is required");
+        }
+
+        Patient existing = repo.findByUserId(userId);
+
+        if (existing != null) {
+            throw new IllegalArgumentException(
+                "Patient profile already exists for this user"
+            );
+        }
+
         patient.setUserId(userId);
         return repo.save(patient);
     }
 
     public Patient getByUserId(Long userId) {
-        return repo.findByUserId(userId);
+    	if (userId == null) {
+            throw new IllegalArgumentException("User ID is required");
+        }
+
+        Patient patient = repo.findByUserId(userId);
+
+        if (patient == null) {
+            throw new ResourceNotFoundException(
+                "Patient profile not found for userId: " + userId
+            );
+        }
+
+        return patient;
     }
 
     public Patient updatePatient(Patient patient, Long userId) {
         Patient existing = repo.findByUserId(userId);
+        if (existing == null) {
+            throw new ResourceNotFoundException(
+                "Patient profile not found for userId: " + userId
+            );
+        }
         patient.setPatientId(existing.getPatientId());
         patient.setUserId(userId);
         return repo.save(patient);

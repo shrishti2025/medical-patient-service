@@ -1,14 +1,9 @@
 package com.hospital.medical_patient_service.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import com.hospital.medical_patient_service.dto.ApiResponse;
 import com.hospital.medical_patient_service.entity.Patient;
 import com.hospital.medical_patient_service.services.PatientService;
 
@@ -23,28 +18,36 @@ public class PatientController {
 
     // Create profile
     @PostMapping
-    public Patient createPatient(
-    		@Valid
-            @RequestBody Patient patient,
+    public ApiResponse<Patient> createPatient(
+            @Valid @RequestBody Patient patient,
             @RequestHeader("X-User-Id") Long userId) {
 
-        return service.createPatient(patient, userId);
+        return ApiResponse.success(
+                "Patient profile created successfully",
+                service.createPatient(patient, userId)
+        );
     }
 
     // View own profile
     @GetMapping("/me")
-    public Patient getMyProfile(
+    public ApiResponse<Patient> getMyProfile(
             @RequestHeader("X-User-Id") Long userId) {
 
-        return service.getByUserId(userId);
+        return ApiResponse.success(
+                "Patient profile fetched successfully",
+                service.getByUserId(userId)
+        );
     }
 
     // Update profile
     @PutMapping("/me")
-    public Patient updateProfile(
-            @RequestBody Patient patient,
+    public ApiResponse<Patient> updateProfile(
+            @Valid @RequestBody Patient patient,
             @RequestHeader("X-User-Id") Long userId) {
 
-        return service.updatePatient(patient, userId);
+        return ApiResponse.success(
+                "Patient profile updated successfully",
+                service.updatePatient(patient, userId)
+        );
     }
 }

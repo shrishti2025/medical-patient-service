@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.hospital.medical_patient_service.dto.ApiResponse;
 import com.hospital.medical_patient_service.entity.MedicalHistory;
 import com.hospital.medical_patient_service.services.MedicalHistoryService;
 
@@ -18,18 +19,23 @@ public class MedicalHistoryController {
     private MedicalHistoryService service;
 
     @PostMapping
-    public MedicalHistory addHistory(
-    		@Valid
-            @RequestBody MedicalHistory history,
-            @RequestHeader("X-Patient-Id") Long patientId) {
+    public ApiResponse<MedicalHistory> addHistory(
+            @Valid @RequestBody MedicalHistory history,
+            @RequestHeader("X-User-Id") Long userId) {
 
-        return service.addHistory(history, patientId);
+        return ApiResponse.success(
+                "Medical history added successfully",
+                service.addHistory(history, userId)
+        );
     }
 
     @GetMapping
-    public List<MedicalHistory> getHistory(
-            @RequestHeader("X-Patient-Id") Long patientId) {
+    public ApiResponse<List<MedicalHistory>> getHistory(
+            @RequestHeader("X-User-Id") Long userId) {
 
-        return service.getHistory(patientId);
+        return ApiResponse.success(
+                "Medical history fetched successfully",
+                service.getHistory(userId)
+        );
     }
 }

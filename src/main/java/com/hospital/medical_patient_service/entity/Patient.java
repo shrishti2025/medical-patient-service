@@ -20,7 +20,6 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long patientId;
 	
-	@NotNull(message = "User ID is required")
 	private Long userId;
 	
 	@NotBlank(message = "Full name cannot be empty")
