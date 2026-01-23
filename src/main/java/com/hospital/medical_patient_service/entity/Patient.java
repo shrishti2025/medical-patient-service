@@ -12,9 +12,14 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.*;
+
 
 @Entity
 @Table(name = "patients")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Patient {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,58 +52,5 @@ public class Patient {
     @Pattern(regexp = "^[0-9]{10}$", message = "Emergency contact must be 10 digits")
     private String emergencyContact;
     
-    public Long getPatientId() {
-		return patientId;
-	}
-	public void setPatientId(Long patientId) {
-		this.patientId = patientId;
-	}
-	public Long getUserId() {
-		return userId;
-	}
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-	public String getFullName() {
-		return fullName;
-	}
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
-	public String getGender() {
-		return gender;
-	}
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-	public LocalDate getDob() {
-		return dob;
-	}
-	public void setDob(LocalDate dob) {
-		this.dob = dob;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public String getBloodGroup() {
-		return bloodGroup;
-	}
-	public void setBloodGroup(String bloodGroup) {
-		this.bloodGroup = bloodGroup;
-	}
-	public String getEmergencyContact() {
-		return emergencyContact;
-	}
-	public void setEmergencyContact(String emergencyContact) {
-		this.emergencyContact = emergencyContact;
-	}
+    
 }

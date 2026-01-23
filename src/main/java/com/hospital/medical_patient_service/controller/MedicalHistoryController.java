@@ -25,7 +25,7 @@ public class MedicalHistoryController {
 
         return ApiResponse.success(
                 "Medical history added successfully",
-                service.addHistory(history, userId)
+                service.addHistory(history, userId)	
         );
     }
 
@@ -38,4 +38,17 @@ public class MedicalHistoryController {
                 service.getHistory(userId)
         );
     }
+    
+    @PutMapping("/{historyId}")
+    public ApiResponse<MedicalHistory> updateHistory(
+    		@PathVariable Long historyId,
+            @Valid @RequestBody MedicalHistory history,
+            @RequestHeader("X-User-Id") Long userId) {
+
+        return ApiResponse.success(
+                "Medical history updated successfully",
+            service.updateHistory(historyId,history,userId)
+        );
+    }
+
 }

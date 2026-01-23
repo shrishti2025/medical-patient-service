@@ -25,7 +25,7 @@ public class PatientService {
                 "Patient profile already exists for this user"
             );
         }
-
+        patient.setPatientId(null);
         patient.setUserId(userId);
         return repo.save(patient);
     }

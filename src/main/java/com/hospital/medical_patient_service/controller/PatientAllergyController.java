@@ -38,4 +38,17 @@ public class PatientAllergyController {
                 service.getAllergies(userId)
         );
     }
+    
+    @PutMapping("/{allergyId}")
+    public ApiResponse<PatientAllergy> updateAllergy(
+            @PathVariable Long allergyId,
+            @Valid @RequestBody PatientAllergy allergy,
+            @RequestHeader("X-User-Id") Long userId) {
+
+        return ApiResponse.success(
+                "Allergy updated successfully",
+                service.updateAllergy(allergyId,allergy,userId)
+        );
+    }
+
 }

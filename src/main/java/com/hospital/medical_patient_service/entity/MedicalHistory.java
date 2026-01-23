@@ -1,11 +1,19 @@
 package com.hospital.medical_patient_service.entity;
 
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.*;
+import lombok.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "medical_history")
 public class MedicalHistory {
@@ -27,49 +35,11 @@ public class MedicalHistory {
     @NotNull(message = "Diagnosis date is required")
     @PastOrPresent(message = "Diagnosis date cannot be in the future")
     @Column(name = "diagnosis_date")
-    private String diagnosisDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate diagnosisDate;
 
     @Size(max = 255, message = "Notes cannot exceed 255 characters")
     private String notes;
 
-    // getters & setters
-    public Long getHistoryId() {
-        return historyId;
-    }
-
-    public void setHistoryId(Long historyId) {
-        this.historyId = historyId;
-    }
-
-    public Long getPatientId() {
-        return patientId;
-    }
-
-    public void setPatientId(Long patientId) {
-        this.patientId = patientId;
-    }
-
-    public String getConditionName() {
-        return conditionName;
-    }
-
-    public void setConditionName(String conditionName) {
-        this.conditionName = conditionName;
-    }
-
-    public String getDiagnosisDate() {
-        return diagnosisDate;
-    }
-
-    public void setDiagnosisDate(String diagnosisDate) {
-        this.diagnosisDate = diagnosisDate;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
+    
 }
